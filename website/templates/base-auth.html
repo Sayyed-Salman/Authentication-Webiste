@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/auth.css">
+    <title>{% block title %}Home{% endblock %}</title>
+</head>
+<body>
+    <div class="form-wrapper">
+
+        <div class="title">
+            <h1>{% block form_title %} User Login{% endblock %}</h1>
+        </div>
+
+        <div class="login">
+            <h2>Login</h2>
+            {% block login_form %}
+            <!-- <form action="POST" name="login" class="login-form" >
+                <input type="text" name="name" id="name" placeholder="Name">
+                <input type="password" name="pass" id="pass" placeholder="Password">
+                <input type="submit" value="Login">
+            </form> -->
+            {% endblock %}
+        </div>
+
+        <div class="register">
+
+            <h2>Register</h2>
+            {% block registration_form %}
+            <!-- <form action="POST" name="register" class="register-form">
+                <input type="text" name="name" id="name" placeholder="Name">
+                <input type="password" name="pass" id="pass" placeholder="Password">
+                <input type="email" name="email" id="email" placeholder="Email">
+                <input type="submit" value="Register">
+            </form> -->
+            {% endblock %}
+
+        </div>
+    </div>
+</body>
+</html>
