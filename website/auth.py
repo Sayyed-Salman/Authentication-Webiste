@@ -31,14 +31,13 @@ def admin():
             if u:
                 if check_password_hash(u.password, password):
                     flash("Login Successfull")
-                    return redirect(url_for('views.login_home', username=username))
+                    return redirect(url_for('views.login_home', username=username, tag="admin"))
                 else:
                     flash("incorrect password")
             else:
                 flash("User does not exist!")
             print("Login Form Submitted !")
-            # checking user in database
-            # redirect to home.html with username and tag attribute
+
         # Register
         if request.form.get('name'):
             tag = "admin"
@@ -53,14 +52,13 @@ def admin():
                 db.session.add(new_user)
                 db.session.commit()
                 flash("Account Created Succesfully", category="success")
-                return redirect(url_for('views.login_home'))
+                return redirect(url_for('views.login_home', username=name, tag=tag))
             else:
                 long_msg = " "
                 for msg in test:
                     long_msg.join(msg)
                 flash(long_msg)
                 flash("Something went wrong !")
-
             print("Registration Form submitted")
 
     return render_template("admin-auth.html")
@@ -73,21 +71,39 @@ def user():
             username = request.form.get('username')
             password = request.form.get('password')
             print("Login Form Submitted !")
-            # checking user in database
-            # redirect to home.html with username and tag attribute
-            pass
+            u = Person.query.filter_by(name=username).first()
+            if u:
+                if check_password_hash(u.password, password):
+                    flash("Login Successfull")
+                    return redirect(url_for('views.login_home', username=username, tag="user"))
+                else:
+                    flash("incorrect password")
+            else:
+                flash("User does not exist!")
+            print("Login Form Submitted !")
+
         if request.form.get('name'):
             tag = "user"
             name = request.form.get('name')
             pass_ = request.form.get('pass')
             email = request.form.get('email')
             print("Registration Form submitted")
-            # Validating user inputs before regestring
+            test = validate_user_input(name, email, pass_)
+            if test == "OK":
+                new_user = Person(tag=tag, name=name, email=email,
+                                  password=generate_password_hash(pass_, method='sha256'))
+                db.session.add(new_user)
+                db.session.commit()
+                flash("Account Created Succesfully", category="success")
+                return redirect(url_for('views.login_home', username=name, tag=tag))
+            else:
+                long_msg = " "
+                for msg in test:
+                    long_msg.join(msg)
+                flash(long_msg)
+                flash("Something went wrong !")
+            print("Registration Form submitted")
 
-            # Adding user in database.
-            pass
-    data = request.form
-    print(data)
     return render_template("user-auth.html")
 
 
@@ -98,9 +114,16 @@ def superuser():
             username = request.form.get('username')
             password = request.form.get('password')
             print("Login Form Submitted !")
-            # checking user in database
-            # redirect to home.html with username and tag attribute
-            pass
+            u = Person.query.filter_by(name=username).first()
+            if u:
+                if check_password_hash(u.password, password):
+                    flash("Login Successfull")
+                    return redirect(url_for('views.login_home', username=username, tag="superuser"))
+                else:
+                    flash("incorrect password")
+            else:
+                flash("User does not exist!")
+            print("Login Form Submitted !")
 
         if request.form.get('name'):
             tag = "superuser"
@@ -108,11 +131,24 @@ def superuser():
             pass_ = request.form.get('pass')
             email = request.form.get('email')
             print("Registration Form submitted")
-            # Validating user inputs before regestring
-            # Adding user in database.
+            test = validate_user_input(name, email, pass_)
+            if test == "OK":
+                new_user = Person(tag=tag, name=name, email=email,
+                                  password=generate_password_hash(pass_, method='sha256'))
+                db.session.add(new_user)
+                db.session.commit()
+                flash("Account Created Succesfully", category="success")
+                return redirect(url_for('views.login_home', username=name, tag=tag))
+            else:
+                long_msg = " "
+                for msg in test:
+                    long_msg.join(msg)
+                flash(long_msg)
+                flash("Something went wrong !")
+            print("Registration Form submitted")
     return render_template("super-auth.html")
 
 
 @auth.route("/logout")
 def logout():
-    return "None"
+    return render_template('logout.html')

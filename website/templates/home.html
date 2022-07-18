@@ -9,5 +9,10 @@
 </head>
 <body>
     <h1>Home Page</h1>
+    <div>
+        {% if request.form.get('tag') == "user" %}
+        <h1>Welcome {{ request.form.get('username') }}</h1>
+        {% endif %}
+    </div>
 </body>
 </html>
