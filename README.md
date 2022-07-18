@@ -31,6 +31,11 @@ Creating an application with 3 types of users "Super Admin", "Admin" & "Employee
 - working database and login functionaliy.
 - run's on my machine 😼.
 
+## Screenshots
+
+![root](./assets/root.jpg)
+![login](./assets/super-admin.jpg)
+
 ## Installation
 
 - Install all requirments.
