@@ -1,14 +1,14 @@
 {% extends "base-auth.html" %} {% block title%} Admin Page{% endblock title%} {%
 block form_title %} Admin {% endblock %}
 {% block login_form %} 
-            <form action="{{ url_for('auth.admin')}}" name="login" class="login-form">
+            <form action="{{ url_for('auth.admin')}}" method="POST" name="login" class="login-form">
                 <input type="text" name="username" id="username" placeholder="Name">
                 <input type="password" name="password" id="password" placeholder="Password">
                 <input type="submit" value="Login">
             </form>
 {% endblock %}
 {% block registration_form %}
-            <form action="{{ url_for('auth.admin')}}" name="register" class="register-form">
+            <form action="{{ url_for('auth.admin')}}" method="POST" name="register" class="register-form">
                 <input type="text" name="name" id="name" placeholder="Name">
                 <input type="password" name="pass" id="pass" placeholder="Password">
                 <input type="email" name="email" id="email" placeholder="Email">

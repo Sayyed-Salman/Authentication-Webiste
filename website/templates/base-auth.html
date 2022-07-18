@@ -39,5 +39,18 @@
 
         </div>
     </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category,message in messages %}
+            <p id="imp-msg">{{message}}</p>
+            <script>
+                msg = document.getElementById('imp-msg').innerText
+                alert(msg)
+            </script>
+        {% endfor%}
+    {% endif %}
+    {% endwith %}
+
 </body>
 </html>
